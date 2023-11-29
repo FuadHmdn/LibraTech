@@ -143,6 +143,7 @@ public class LibraTech {
                             break;
 
                         }else if(pilihan <= adm.add.size() && pilihan > 0){
+                            index = 1;
                             while(true){
                                 AnggotaPerpustakaan hasil = adm.add.get(pilihan - 1);
 
