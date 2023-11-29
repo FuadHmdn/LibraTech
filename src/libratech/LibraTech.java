@@ -21,15 +21,13 @@ public class LibraTech {
     
     public static void main(String[] args) {
         
-        ArrayList<AnggotaPerpustakaan> daftarAnggota = new ArrayList<>();
         Admin adm = new Admin(1, "Urip");
         TransaksiPeminjaman T1 = new TransaksiPeminjaman();
 
         AnggotaPerpustakaan agt1 = new AnggotaPerpustakaan(adm, "Rifqi", 123, "Gedung Meneng", "Tidak Ada", 50);
         AnggotaPerpustakaan agt2 = new AnggotaPerpustakaan(adm, "Billy Joe Amstrong", 124, "Amerika", "Tidak Ada", 0);
-        daftarAnggota.add(agt1);
-        daftarAnggota.add(agt2);
-        adm.addAnggota(new AnggotaPerpustakaan(adm, "Paul McCartney", 125, "Lokasi", "Tidak Ada", 0));
+
+        adm.addAnggota(adm,"Paul McCartney", 125, "Lokasi", "Tidak Ada", 0);
         adm.addBuku("Marmut Merah Jambu", "Raditya Dika", 987654321, true);
         adm.addBuku("Harry Potter", "J. K. Rowling", 997654321,true);
         adm.addBuku("Kambing Jantan", "Raditya Dika", 943221212, true);
@@ -75,15 +73,15 @@ public class LibraTech {
                                 scanner.nextLine();
                                 System.out.print("Masukkan Alamat Anggota : ");
                                 String alamat = scanner.nextLine();
-                                adm.addAnggota(nama, nomor, alamat, "Tidak Ada", 0);
+                                adm.addAnggota(adm, nama, nomor, alamat, "Tidak Ada", 0);
                                 System.out.print("Anggota berhasil ditambahkan\n");
                                 break;
 
                             case 2:
-                                System.out.print("Masukkan Nomor Anggota Yang Akan Dihapus : ");
-                                int nomorToRemove = scanner.nextInt();
+                                System.out.print("Masukkan Nama Anggota Yang Akan Dihapus : ");
+                                String namaToRemove = scanner.nextLine();
                                 scanner.nextLine(); // consume the newline character
-                                adm.removeAnggota(nomorToRemove);
+                                adm.removeAnggota(namaToRemove);
                                 break;
 
                             case 3:
@@ -131,7 +129,7 @@ public class LibraTech {
                     while (true){
                         System.out.println("\n===============================================================================");
                         System.out.println("Pilih Pengguna.");
-                        for(AnggotaPerpustakaan value : daftarAnggota){
+                        for(AnggotaPerpustakaan value : adm.add){
                             System.out.println(index + ". "+value.getNama());
                             index++;
                         }
@@ -144,9 +142,9 @@ public class LibraTech {
                             System.out.println("Kembali ke Menu Utama");
                             break;
 
-                        }else if(pilihan <= daftarAnggota.size() && pilihan > 0){
+                        }else if(pilihan <= adm.add.size() && pilihan > 0){
                             while(true){
-                                AnggotaPerpustakaan hasil = daftarAnggota.get(pilihan - 1);
+                                AnggotaPerpustakaan hasil = adm.add.get(pilihan - 1);
 
                                 System.out.println("=========================================================================\n");
                                 System.out.println("Silahkan pilih menu");
