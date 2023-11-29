@@ -21,9 +21,8 @@ public class Admin {
         this.namaAdmin = namaAdmin;
     }
 
-    public void addAnggota(String nama, int nomorAnggota, String alamat, String riwayatPeminjaman, int denda) {
-        AnggotaPerpustakaan anggota = new AnggotaPerpustakaan(this, nama, nomorAnggota, alamat, riwayatPeminjaman, denda);
-        add.add(anggota);
+    public void addAnggota(Admin adm, String nama, int nomorAnggota, String alamat, String riwayatPeminjaman, int denda) {
+        AnggotaPerpustakaan anggota = new AnggotaPerpustakaan(adm, nama, nomorAnggota, alamat, riwayatPeminjaman, denda);
     }
 
     public void addAnggota(AnggotaPerpustakaan anggota) {
@@ -31,14 +30,14 @@ public class Admin {
     }
 
 
-    public void removeAnggota(int nomor) {
+    public void removeAnggota(String nama) {
         Iterator<AnggotaPerpustakaan> iterator = add.iterator();
 
         boolean anggotaDitemukan = false;
 
         while (iterator.hasNext()) {
             AnggotaPerpustakaan anggota = iterator.next();
-            if (anggota.getNomorAnggota() == nomor) {
+            if (anggota.getNama().contentEquals(nama)) {
                 iterator.remove();
                 anggotaDitemukan = true;
                 System.out.println("Berhasil Menghapus " + anggota.getNama() + "\n");
@@ -111,6 +110,13 @@ public class Admin {
     return false;
 }
 
+    public int getIdAdmin() {
+        return idAdmin;
+    }
+
+    public String getNamaAdmin() {
+        return namaAdmin;
+    }
+
     
 }
-
