@@ -41,7 +41,7 @@ public class AnggotaPerpustakaan {
     public void cariBuku(String judul){
         boolean ditemukan = false;
         for(Buku value : admin.daftarbuku){
-            if (value.getJudul().contains(judul)){
+            if (value.getJudul().contentEquals(judul)){
                System.out.println("Judul        : " + value.getJudul());
                System.out.println("Pengarang    : "+value.getPengarang());
                System.out.println("NomorISBN    : "+value.getNomorISBN());
