@@ -202,7 +202,6 @@ public class LibraTech {
                                                 System.out.print("Masukan Judul Buku Yang Ingin Dipinjam : ");
                                                 String judulInginPinjam = scanner.nextLine();
                                                 hasil.pinjamBuku(judulInginPinjam);
-                                                scanner.nextLine();
                                                 System.out.println("Berhasil Meminjam Buku " + judulInginPinjam);
                                             }else if(jawab.contains("y") && hasil.getTotalPinjaman() >= 3){
                                                 System.out.println("Maaf Batas Peminjaman Buku Anda Sudah Penuh\n");
