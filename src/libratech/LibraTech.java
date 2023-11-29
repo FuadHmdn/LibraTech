@@ -3,11 +3,21 @@ package libratech;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Fuad.H
- */
 public class LibraTech {
+
+    static void tampilkanAnggota(ArrayList<AnggotaPerpustakaan> daftarAnggota) {
+        System.out.println("================================== Daftar Anggota =================================");
+        for (AnggotaPerpustakaan anggota : daftarAnggota) {
+            System.out.println("Nama               : " + anggota.getNama());
+            System.out.println("Nomor Anggota      : " + anggota.getNomorAnggota());
+            System.out.println("Alamat             : " + anggota.getAlamat());
+            System.out.println("Riwayat Peminjaman : " + anggota.getRiwayatPeminjaman());
+            System.out.println("Denda              : Rp." + anggota.getDenda() + ".000,-");
+            System.out.println("-------------------------------------------------------------------------------");
+        }
+        System.out.println("===================================================================================\n");
+    }
+
     
     public static void main(String[] args) {
         
@@ -15,25 +25,23 @@ public class LibraTech {
         Admin adm = new Admin(1, "Urip");
         TransaksiPeminjaman T1 = new TransaksiPeminjaman();
 
-        AnggotaPerpustakaan agt1 = new AnggotaPerpustakaan(adm,"Rifqi", 123, "Gedung Meneng", "Tidak Ada", 0,T1);
-        AnggotaPerpustakaan agt2 = new AnggotaPerpustakaan(adm,"Billy Joe Amstrong", 124, "Amerika", "Tidak Ada", 0, T1);
+        AnggotaPerpustakaan agt1 = new AnggotaPerpustakaan(adm, "Rifqi", 123, "Gedung Meneng", "Tidak Ada", 50);
+        AnggotaPerpustakaan agt2 = new AnggotaPerpustakaan(adm, "Billy Joe Amstrong", 124, "Amerika", "Tidak Ada", 0);
         daftarAnggota.add(agt1);
         daftarAnggota.add(agt2);
-        
-        adm.addAnggota("Paul McCartney", 125, "Britania Raya", "Tidak Ada", 500);
+        adm.addAnggota(new AnggotaPerpustakaan(adm, "Paul McCartney", 125, "Lokasi", "Tidak Ada", 0));
         adm.addBuku("Marmut Merah Jambu", "Raditya Dika", 987654321, true);
         adm.addBuku("Harry Potter", "J. K. Rowling", 997654321,true);
         adm.addBuku("Kambing Jantan", "Raditya Dika", 943221212, true);
-        //agt1.pinjamBuku("Kambing Jantan");
         
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
-            System.out.println("=========================================================================");
+            System.out.println("================ Selamat Datang di Library Technology ===================");
             int index = 1;
-            System.out.println("Pilih Akses Sebagai");
+            System.out.println("Silahkan Pilih Akses Anda");
             System.out.println("1. Admin\n2. Anggota\n0. Keluar");
-            System.out.print("Masukian Input : ");
+            System.out.print("Akses sebagai (0-2) : ");
             int pilihanAwal = scanner.nextInt();
             scanner.nextLine();
             
@@ -43,7 +51,7 @@ public class LibraTech {
             }
             else if(pilihanAwal == 1){
                 while(true){
-                    System.out.println("=========================================================================\n");
+                    System.out.println("===============================================================\n");
                     System.out.println("Pilih operasi:");
                     System.out.println("1. Tambah Anggota");
                     System.out.println("2. Hapus Anggota");
@@ -53,10 +61,10 @@ public class LibraTech {
                     System.out.println("6. Rekap Denda");
                     System.out.println("7. Aktivitas");
                     System.out.println("0. Kembali");
-                    System.out.print("Masukian Input : ");
+                    System.out.print("Masukan Input : ");
                     int choice = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.println("=========================================================================\n");
+                    System.out.println("================================================================\n");
                     
                     switch (choice) {
                             case 1:
@@ -67,39 +75,38 @@ public class LibraTech {
                                 scanner.nextLine();
                                 System.out.print("Masukkan Alamat Anggota : ");
                                 String alamat = scanner.nextLine();
-                                System.out.print("Masukkan Riwayat Peminjaman Anggota : ");
-                                String riwayat = scanner.nextLine();
-                                System.out.print("Masukkan Riwayat denda Anggota : ");
-                                int denda = scanner.nextInt();
-                                adm.addAnggota(nama, nomor, alamat, riwayat, denda);
-                                System.out.println("\nBerhasil Menambahkan Anggota LibraTech..");
+                                adm.addAnggota(nama, nomor, alamat, "Tidak Ada", 0);
+                                System.out.print("Anggota berhasil ditambahkan\n");
                                 break;
+
                             case 2:
-                                System.out.print("Masukkan Nomor Anggota Yang Anakn Dihapus : ");
-                                String namaAnggota = scanner.nextLine();
-                                adm.removeAnggota(namaAnggota);
+                                System.out.print("Masukkan Nomor Anggota Yang Akan Dihapus : ");
+                                int nomorToRemove = scanner.nextInt();
+                                scanner.nextLine(); // consume the newline character
+                                adm.removeAnggota(nomorToRemove);
                                 break;
+
                             case 3:
                                 System.out.print("Masukkan Judul Buku : ");
                                 String judul = scanner.nextLine();
                                 System.out.print("Masukkan Penulis Buku : ");
                                 String pengarang = scanner.nextLine();
-                                System.out.print("Masukkan NoISBN Buku : ");
+                                System.out.print("Masukkan Nomor ISBN Buku : ");
                                 int ISBN = scanner.nextInt();
                                 scanner.nextLine();
-                                System.out.print("Masukkan Status Ketersediaan Buku : ");
+                                System.out.print("Masukkan Status Ketersediaan Buku (true/false) : ");
                                 boolean status = scanner.nextBoolean();
                                 adm.addBuku(judul, pengarang, ISBN, status);
                                 System.out.println("\nBerhasil Menambahkan Buku LibraTech..");
                                 break;
                             case 4:
-                                System.out.print("Masukkan Judul Buku Yang Anakn Dihapus : ");
+                                System.out.print("Masukkan Judul Buku Yang Ingin Dihapus : ");
                                 String judulBuku = scanner.nextLine();
                                 adm.removeBuku(judulBuku);
                                 System.out.println("Berhasil Menghapus " + judulBuku + "\n");
                                 break;
                             case 5:
-                                adm.tampilkanAnggota();
+                                tampilkanAnggota(adm.getDaftarAnggota());
                                 scanner.nextLine();
                                 break;
                             case 6:
@@ -111,11 +118,10 @@ public class LibraTech {
                                 scanner.nextLine();
                                 break;
                             case 0:
-                                System.out.println("");
-                            default:
-                                System.out.println("Operasi tidak valid. Silakan pilih kembali.");
+                                System.out.println("Kembali ke Menu Utama");
                     }
                     if(choice == 0){
+                        System.out.println("Kembali ke Menu Utama");
                         break;
                     }
                     
@@ -123,7 +129,7 @@ public class LibraTech {
             }
                 else if(pilihanAwal == 2){
                     while (true){
-                        System.out.println("\n=========================================================================");
+                        System.out.println("\n===============================================================================");
                         System.out.println("Pilih Pengguna.");
                         for(AnggotaPerpustakaan value : daftarAnggota){
                             System.out.println(index + ". "+value.getNama());
@@ -135,7 +141,7 @@ public class LibraTech {
                         scanner.nextLine();
 
                         if(pilihan == 0){
-                            System.out.println("Terimakasih Sudah Mengunjungi LibraTech");
+                            System.out.println("Kembali ke Menu Utama");
                             break;
 
                         }else if(pilihan <= daftarAnggota.size() && pilihan > 0){
@@ -143,14 +149,14 @@ public class LibraTech {
                                 AnggotaPerpustakaan hasil = daftarAnggota.get(pilihan - 1);
 
                                 System.out.println("=========================================================================\n");
-                                System.out.println("Pilih operasi:");
+                                System.out.println("Silahkan pilih menu");
                                 System.out.println("1. Pinjam Buku");
                                 System.out.println("2. Kembalikan Buku");
                                 System.out.println("3. Tampilkan Transaksi");
                                 System.out.println("4. Tampilkan Buku");
                                 System.out.println("5. Cari Buku");
                                 System.out.println("0. Keluar");
-                                System.out.print("Masukian Input : ");
+                                System.out.print("Pilihan Anda (0-5): ");
                                 int choice = scanner.nextInt();
                                 scanner.nextLine();
                                 System.out.println("=========================================================================\n");
@@ -159,13 +165,21 @@ public class LibraTech {
                                     case 1:
                                         System.out.print("Masukkan judul buku yang ingin dipinjam: ");
                                         String judulPinjam = scanner.nextLine();
-                                        if(hasil.getTotalPinjaman() < 3){
-                                                hasil.pinjamBuku(judulPinjam);
-                                                System.out.println("Berhasil Meminjam Buku " + judulPinjam);
-                                                scanner.nextLine();
-                                            }else if(hasil.getTotalPinjaman() == 3){
-                                                System.out.println("Maaf Batas Peminjaman Buku Anda Sudah Penuh\n");
+                                        if (hasil.getTotalPinjaman() < 3) {
+                                            if (adm.checkBookAvailability(judulPinjam)) {
+                                                if (hasil.getDenda() > 0) {
+                                                    System.out.println("Maaf, Anda memiliki denda yang belum dibayar. Tidak bisa meminjam buku.");
+                                                } else {
+                                                    hasil.pinjamBuku(judulPinjam);
+                                                    System.out.println("Berhasil Meminjam Buku " + judulPinjam);
+                                                }
+                                            } else {
+                                                System.out.println("Maaf, buku tidak tersedia untuk dipinjam.");
                                             }
+                                        } else {
+                                            System.out.println("Maaf, batas peminjaman buku Anda sudah penuh atau Anda memiliki denda.");
+                                        }
+                                        scanner.nextLine();
                                         break;
                                     case 2:
                                         System.out.print("Masukkan judul buku yang ingin dikembalikan: ");
@@ -174,6 +188,7 @@ public class LibraTech {
                                         int durasiPengembalian = scanner.nextInt();
                                         hasil.mengembalikanBuku(judulKembali, durasiPengembalian);
                                         scanner.nextLine();
+                                        
                                         break;
                                     case 3:
                                         hasil.tampilkanTransaksi();
@@ -206,12 +221,11 @@ public class LibraTech {
                                         break;
                                     case 0:
                                         System.out.println("Kembali ke Menu Utama");
-                                    default:
-                                        System.out.println("Operasi tidak valid. Silakan pilih kembali.");
                                 } 
                                 if(choice == 0 ){
-                                        break;
-                                    }
+                                    System.out.println("Kembali ke Menu Utama");
+                                    break;
+                                }
                             }  
                         }
                     }
